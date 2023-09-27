@@ -1,0 +1,592 @@
+@import url('https://fonts.googleapis.com/css?family=Libre Baskerville');
+@import url('https://fonts.googleapis.com/css?family=Kumbh Sans');
+
+
+/*
+=============== 
+Variables
+===============
+*/
+:root {
+ 
+  /* grey used for paragraphs */
+  --clr-black: #000000;
+  --clr-grey: #7D7D7D;
+  --clr-light-grey:#E5E5E5;
+  --clr-white: #FFFFFF;
+  --clr-light-white: #F3F3F3;
+
+ 
+
+  --clr--red: #FC4747;
+  --clr--dark-blue: #10141E;
+  --clr--greyish-blue:#5A698F;
+  --clr--semi-dark-blue:#161D2F;
+  
+
+
+
+  --transition: all 0.3s linear;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+ }
+/*
+=============== 
+Global Styles
+===============
+*/
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*ul {
+  list-style-type: none;
+}*/
+a {
+  text-decoration: none;
+}
+
+.btn {
+  background: var(--clr-primary-5);
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  
+  color: var(--clr-white);
+  letter-spacing: var(--spacing);
+  border-color: transparent;
+  cursor: pointer;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  
+}
+
+body {
+  font-family: 'Kumbh Sans','Libre Baskerville','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: var(--clr--semi-dark-blue);
+  color: var(--clr-light-grey);
+}
+
+
+
+h1{
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: bold;
+}
+
+h2{
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: bold;
+}
+
+h3{
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+.h4{
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: bold;
+}
+
+p{
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: bold;
+}
+
+.navbar-container{
+  border: 1px solid transparent;
+  height: 56px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  background-color: var(--clr--dark-blue);
+
+ 
+}
+
+
+
+
+.navbar-container img{
+  display: inline-block;
+  padding: 1rem;
+}
+
+.title{
+  margin-left: 1rem;
+}
+
+.form-holder{
+  display: flex;
+  padding: 0.5rem;
+}
+
+.form-input{
+  background-color: #161D2F;
+  border: none;
+  color: var(--clr-light-white);
+  width: 80vw;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  transition: var(--transition);
+  border-radius: 2rem;
+}
+
+.form-input::placeholder {
+  font-size: 20px; /* Adjust the font size to your preference */
+  font-family: 'Kumbh Sans','Libre Baskerville','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+}
+
+.form-input:focus {
+  color: var(--clr-light-white); /* Change the color to your desired color */
+
+}
+
+.form-input:hover {
+  filter: grayscale(100%);  
+  filter: brightness(50%); 
+}
+
+
+
+.navbar-container img:hover {
+ /* filter: grayscale(100%);  Change the color to grayscale (100% desaturation) on hover */
+  filter: brightness(250%); /* Change brightness to 50% on hover */
+  cursor: pointer;
+}
+
+.moviecontainer{
+  background-color: var(--clr--semi-dark-blue);
+  color: var(--clr-light-grey);
+  
+  padding: 1rem;
+  margin: 0rem;
+  height: 300px;
+  margin-top: 1rem;
+
+  
+  
+}
+
+.movie-canvas{
+  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+@media screen and (min-width: 700px){
+  .movie-canvas{
+  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+  }
+
+}
+
+.thumbnail-container{
+  position: relative;
+  /*width:320px;*/
+  width: 100%;
+  height: 200px;
+  transition: var(--transition);
+}
+
+.thumbnail-image{
+  display: block;
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width:100%; /* Automatically adjust the width while maintaining aspect ratio */
+  height: 100%; /* Automatically adjust the height while maintaining aspect ratio */
+  object-fit:cover;
+  top:0;
+  left: 0;
+  border-radius: 2rem;
+ 
+ }
+
+
+ .thumbnail-container:hover{
+  cursor: pointer;
+  filter: brightness(80%);
+  box-shadow: var(--dark-shadow);
+ }
+
+ .play-container{
+  
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  transition: var(--transition);
+ }
+
+
+.thumbnail-container:hover .play-container {
+  display: block; /* Display child elements on hover */
+  }
+
+.play{
+  width: 10%;
+  height: 10%;
+  left: 45%;
+  top:45%;
+  display: none;
+  
+ }
+
+ .thumbnail-container:hover .play {
+  display: block; /* Display child elements on hover */
+  }
+
+ .bookmark-container{
+  position: absolute;
+  right: 2rem;
+  top:1rem;
+  z-index: 100;
+ 
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+ }
+
+ .bookmark-container:hover{
+  cursor: pointer;
+  box-shadow: var(--dark-shadow);
+ }
+
+
+
+
+
+/*.navbar-container img:nth-child(2) {
+  
+  
+  margin-left: 9rem;
+}*/
+
+.logo {
+  
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.nav-icons{
+  display: inline-block;
+ 
+}
+
+.sec-info{
+  padding-top: 0.8rem;
+}
+
+
+.sec-info ul{
+ 
+  display: flex;
+  
+ 
+  
+}
+.sec-info ul li{
+  margin-left: 2rem;
+}
+
+.sec-info ul li:first-child {
+  /* Your CSS styles for the first list item go here */
+  margin-left: 0rem;
+  text-decoration: none;
+  list-style-type: none;
+
+}
+
+.primary-info{
+  margin-top: 0.5rem;
+  
+}
+
+.login-form{
+ 
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 1rem;
+  height: 465px;
+  margin-top: 10rem;
+  background-color: var(--clr--semi-dark-blue);
+  box-shadow: var(--dark-shadow);
+  border: 1px solid transparent;
+  filter: grayscale(10%); 
+  filter: brightness(110%);
+  
+  
+}
+
+.login-form h4{
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+  font-size: 2rem;
+}
+
+.login-input{
+  border-bottom: 1px solid wheat;
+  border-radius: 0rem;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.btn-block{
+  margin-left: 1rem;
+ 
+  width: 80%;
+  background-color: var(--clr--red);
+  height: 48px;
+  margin-left: 4rem;
+  border-radius: 1rem;
+  
+}
+
+.login-form p{
+  margin-left: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+.member-btn{
+  margin-left: 0.5rem;
+  
+}
+
+.logout-button{
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0rem;
+  color: var(--clr--greyish-blue);
+  transition: var(--transition);
+  font-size: 1rem;
+}
+ 
+@media screen and (min-width: 1200px){
+.logout-button{
+  position: absolute;
+  bottom: 0rem;
+  left: 0rem;
+  color: var(--clr--greyish-blue);
+  transition: var(--transition);
+  font-size: 1.5rem;
+}
+}
+
+.logout-button:hover{
+  filter: brightness(180%);
+
+}
+
+@media screen and (min-width: 700px){
+.login-form{
+  width: 60%;
+}
+
+
+.login-input{
+  width: 90%;
+}
+}
+
+
+
+
+
+
+@media screen and (min-width: 1200px){
+  
+
+  .navbar-container{
+    border: 1px solid transparent;
+   
+    position: relative;
+    width: 96px;
+   display: block;
+    
+    background-color: var(--clr--dark-blue);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+   
+   
+  }
+
+  .nav-icons{
+    position: absolute;
+    top: 10rem;
+    left:0.3rem;
+    
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: space-around;
+  
+  }
+
+  .nav-icons img{
+    margin-bottom: 10px;
+    
+  }
+
+  .navbar-container img{
+    display: block;
+    padding: 1rem;
+    margin-left: 1rem;
+  }
+
+  .movie-canvas{
+    
+    position: absolute;
+    top: 7rem;
+    left: 150px;
+    width: 1240px;
+  }
+
+  .info-text{
+    position: absolute;
+    top: 0.5rem;
+    left:140px ;
+  }
+
+  .login-form{
+    width: 40%;
+  }
+
+ 
+}
+
+
+@media screen and (max-width: 400px){
+
+
+
+
+.moviecontainer{
+  padding: 1rem;
+ margin-left: 0.5rem;
+  
+  height: 250px;
+}
+.thumbnail-container{
+  
+  width: 140px;
+  height: 140px;
+  
+}
+.sec-info ul li{
+  font-size: 0.6rem;
+}
+
+
+.primary-info h4{
+  font-size: 0.9rem;
+}
+.thumbnail-image{
+  border-radius: 10px;
+}
+
+.bookmark-container{
+   
+    
+  right:0.5rem;
+  top:0.5rem;
+}
+}
+
+@media screen and (max-width: 300px){
+
+
+
+
+  .moviecontainer{
+    padding: 0rem;
+   margin-left: 0rem;
+    
+    height: 200px;
+  }
+  .thumbnail-container{
+    
+    width: 100px;
+    height: 100px;
+
+    
+  }
+  .thumbnail-image{
+    border-radius: 10px;
+  }
+  .sec-info ul li{
+    font-size: 0.5rem;
+  }
+  
+  
+  .primary-info h4{
+    font-size: 0.7rem;
+  }
+
+  .movie-canvas{
+    
+    padding-left: 1.25rem;
+  }
+
+  .title{
+    font-size: 1rem;
+  }
+
+  .form-input::placeholder {
+    font-size: 12px; 
+    
+  }
+
+  .spes{
+  
+  
+   width: 46px;
+   
+  }
+
+  .logo{
+    width: 56px;
+  }
+
+  .logout-button{
+    font-size: 0.65rem;
+    bottom: 0.9rem;
+  }
+
+  .bookmark-container{
+   
+    
+    right:0.5rem;
+    top:0.5rem;
+  }
+
+  }
