@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const loader = async ({ request }) => {
 
+    // search bar parameters from the user
     const params = Object.fromEntries([
         ...new URL(request.url).searchParams.entries(),
       ]);
@@ -18,16 +19,10 @@ export const loader = async ({ request }) => {
         const { data } = await customFetch.get('/movies', {
           params,
         });
-       
-       
         if(Object.keys(params).length == 0){
           params.search = "";
-         
         }
-       
-
         const searchValues = {...params};
-
         return {data, searchValues};
        
       } catch (error) {
@@ -47,35 +42,26 @@ const Movies = () => {
 
     const {data, searchValues} = useLoaderData();
    
-    
-
-   // const movies = data.movies; // array of movies
-    
     //filter to remove tv shows
     const movies = data.movies.filter(item => item.category !== 'TV Series');
- 
     const navigate = useNavigate();
+    
     const changeState = async (id) => {
         // Get the current URL including query parameters
         const currentUrl = window.location.href;
        try {
           
           const {_id} = id;
-          
           const {data} =  await customFetch.get(`/movies/${_id}`);
-         
           const newbookmark = !data.movie.isBookmarked;
           const  newdata  = await customFetch.patch(`/movies/${_id}`,{
             isBookmarked: newbookmark,
-             
             });
 
-            // Reload the page with the same URL
-          
-
-            navigate(window.location.pathname + window.location.search);
+          // Reload the page with the same URL
+          navigate(window.location.pathname + window.location.search);
       
-           //navigate("/");
+           
       } catch (error) {
         toast.error(error?.response?.data?.msg);
           return error;
@@ -87,17 +73,12 @@ const Movies = () => {
 return (
     <>
     <Navbar/>
-  
-   
-
     <JustmoviesContext.Provider value={{data, searchValues}}>
 
     <div className='info-text'>
-    <SearchContainer/>
-   
-    {movies.length > 0 && <> <h1 className='title'>Recommended for you</h1> </>}
-
-    {movies.length == 0 && <> <h1 className='title'>Oops no such content exists!</h1>   </>}
+      <SearchContainer/>
+      {movies.length > 0 && <> <h1 className='title'>Recommended for you</h1> </>}
+      {movies.length == 0 && <> <h1 className='title'>Oops no such content exists!</h1>   </>}
     </div>
     
 
@@ -108,26 +89,16 @@ return (
         return (
           <article key={_id} >
 
-            
-            
             <div className='moviecontainer'>
 
              <div className='thumbnail-container'>
                <img className='thumbnail-image'  src={movie.thumbnail.regular.large} alt="oops no image" />
-               
-               
-                <img className='thumbnail-image play'  src="./assets/icon-play.svg" alt="oops no image" />
-               
-
-                <button className='bookmark-container'  onClick={()=>changeState({_id})} >
-
-                {isBookmarked ?  <img className='bookmark' src="./assets/icon-bookmark-full.svg" alt="empty bookmark" /> :  <img className='bookmark' src="./assets/icon-bookmark-empty.svg" alt="empty bookmark" />}
-                    
-                </button>
+               <img className='thumbnail-image play'  src="./assets/icon-play.svg" alt="oops no image" />
+               <button className='bookmark-container'  onClick={()=>changeState({_id})} >
+                  {isBookmarked ?  <img className='bookmark' src="./assets/icon-bookmark-full.svg" alt="empty bookmark" /> :  <img className='bookmark' src="./assets/icon-bookmark-empty.svg" alt="empty bookmark" />}
+               </button>
               </div>
                
-             
-
               <div className='movie-info'> 
                 <div className='sec-info'>  
                    <ul>
@@ -142,10 +113,6 @@ return (
                 </div>
               </div>
 
-             
-             
-            
-              
             </div>
           </article>
         );
@@ -153,7 +120,7 @@ return (
   
    
    
-        </div> 
+    </div> 
     
       
     

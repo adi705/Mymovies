@@ -14,7 +14,7 @@ export const createCustomError = (msg, statusCode) => {
 
 export class UnauthenticatedError extends Error {
     constructor(message) {
-      super(message);
+      super(message); // the child class is responsible to initializing also the parent class Error
       this.name = 'UnauthenticatedError';
       this.statusCode = StatusCodes.UNAUTHORIZED;
     }

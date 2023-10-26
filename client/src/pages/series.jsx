@@ -22,12 +22,9 @@ export const loader = async ({ request }) => {
        
         if(Object.keys(params).length == 0){
           params.search = "";
-         
         }
        
-
         const searchValues = {...params};
-
         return {data, searchValues};
        
       } catch (error) {
@@ -47,18 +44,14 @@ const Series = () => {
 
     const {data, searchValues} = useLoaderData();
    
-    
-
-   // const movies = data.movies; // array of movies
-    
     //filter to remove tv shows
     const movies = data.movies.filter(item => item.category !== 'Movie');
- 
     const navigate = useNavigate();
+
     const changeState = async (id) => {
-        // Get the current URL including query parameters
-        const currentUrl = window.location.href;
-       try {
+      // Get the current URL including query parameters
+      const currentUrl = window.location.href;
+      try {
           
           const {_id} = id;
           
@@ -75,7 +68,7 @@ const Series = () => {
 
             navigate(window.location.pathname + window.location.search);
       
-           //navigate("/");
+           
       } catch (error) {
         toast.error(error?.response?.data?.msg);
           return error;
@@ -88,44 +81,30 @@ return (
     <>
     <Navbar/>
   
-   
-
     <JustseriesContext.Provider value={{data, searchValues}}>
 
     <div className='info-text'>
-    <SearchContainer/>
-   
-    {movies.length > 0 && <> <h1 className='title'>Recommended for you</h1> </>}
-
-    {movies.length == 0 && <> <h1 className='title'>Oops no such content exists!</h1>   </>}
-   </div> 
-    <div className='movie-canvas'>
+      <SearchContainer/>
+      {movies.length > 0 && <> <h1 className='title'>Recommended for you</h1> </>}
+      {movies.length == 0 && <> <h1 className='title'>Oops no such content exists!</h1>   </>}
+    </div> 
     
-    { movies.map((movie) =>{
+    <div className='movie-canvas'>
+      { movies.map((movie) =>{
         const {_id,title,year,category,rating, isBookmarked} = movie;
         return (
-          <article key={_id} >
+        <article key={_id} >
 
-            
-            
-            <div className='moviecontainer'>
+          <div className='moviecontainer'>
 
              <div className='thumbnail-container'>
                <img className='thumbnail-image'  src={movie.thumbnail.regular.large} alt="oops no image" />
-
-               
-                    <img className='thumbnail-image play'  src="./assets/icon-play.svg" alt="oops no image" />
-             
-
-                <button className='bookmark-container'  onClick={()=>changeState({_id})} >
-
-                {isBookmarked ?  <img src="./assets/icon-bookmark-full.svg" alt="empty bookmark" /> :  <img src="./assets/icon-bookmark-empty.svg" alt="empty bookmark" />}
-                    
+               <img className='thumbnail-image play'  src="./assets/icon-play.svg" alt="oops no image" />
+               <button className='bookmark-container'  onClick={()=>changeState({_id})} >
+                  {isBookmarked ?  <img src="./assets/icon-bookmark-full.svg" alt="empty bookmark" /> :  <img src="./assets/icon-bookmark-empty.svg" alt="empty bookmark" />}
                 </button>
               </div>
                
-             
-
               <div className='movie-info'> 
                 <div className='sec-info'>  
                    <ul>
@@ -141,19 +120,12 @@ return (
               </div>
 
              
-             
-            
-              
-            </div>
-          </article>
+          </div>
+        </article>
         );
-    }) }
+      }) }
   
-   
-   
-        </div> 
-    
-      
+    </div> 
     
     </JustseriesContext.Provider>
       

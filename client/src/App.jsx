@@ -77,22 +77,4 @@ export default App;
 
 
 
-/*function App() {
-  
 
-  return (
-    <> 
-
-     
-       
-       <h1>yo yo yoy</h1>
-      
-    
-     
-     
-      
-    </>
-  )
-}
-
-export default App*/

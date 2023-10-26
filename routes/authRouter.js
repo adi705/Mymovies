@@ -8,6 +8,7 @@ import {
 
 import rateLimiter from 'express-rate-limit';
 
+// middleware used to limit number of http request in a defined timeframe
 const apiLimiter = rateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 20,

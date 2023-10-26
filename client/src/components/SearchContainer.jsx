@@ -1,13 +1,9 @@
 import { Form, useSubmit, Link } from 'react-router-dom';
 import FormRow from './FormRow';
 import React, { useContext } from 'react';
-
 import { useAllmoviesContext } from '../pages/home';
-
 import { useJustmoviesContext } from '../pages/movies';
-
 import { useJustseriesContext } from '../pages/series';
-
 import { useJustbookmarkContext } from '../pages/bookmark';
 
 
@@ -15,9 +11,11 @@ import { useJustbookmarkContext } from '../pages/bookmark';
 const SearchContainer = () =>{
 
     
-   
+    // react hook used to enable controlled search input
     const submit = useSubmit();
    
+    // at any given time only one of the contexts is defined
+    
     if(useAllmoviesContext() != undefined){
         
         const { data, searchValues } = useAllmoviesContext();

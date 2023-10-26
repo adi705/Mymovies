@@ -19,15 +19,11 @@ export const loader = async ({ request }) => {
           params,
         });
        
-       
-        if(Object.keys(params).length == 0){
+       if(Object.keys(params).length == 0){
           params.search = "";
-         
         }
        
-
         const searchValues = {...params};
-
         return {data, searchValues};
        
       } catch (error) {
@@ -46,7 +42,6 @@ const JustbookmarkContext = createContext();
 const Bookmark = () => {
 
     const {data, searchValues} = useLoaderData();
-   
     const movies = data.movies.filter(item => item.isBookmarked === true);
 
  
@@ -57,21 +52,17 @@ const Bookmark = () => {
        try {
           
           const {_id} = id;
-          
           const {data} =  await customFetch.get(`/movies/${_id}`);
-         
           const newbookmark = !data.movie.isBookmarked;
           const  newdata  = await customFetch.patch(`/movies/${_id}`,{
             isBookmarked: newbookmark,
              
             });
 
-            // Reload the page with the same URL
-          
-
-            navigate(window.location.pathname + window.location.search);
+          // Reload the page with the same URL
+          navigate(window.location.pathname + window.location.search);
       
-           //navigate("/");
+          
       } catch (error) {
         toast.error(error?.response?.data?.msg);
           return error;
@@ -83,16 +74,11 @@ const Bookmark = () => {
 return (
     <>
     <Navbar/>
-  
-   
-
     <JustbookmarkContext.Provider value={{data, searchValues}}>
     <div className='info-text'>
-    <SearchContainer/>
-   
-    {movies.length > 0 && <> <h1 className='title'>Bookmarked</h1> </>}
-
-    {movies.length == 0 && <> <h1 className='title'>Oops no such content exists!</h1>   </>}
+      <SearchContainer/>
+      {movies.length > 0 && <> <h1 className='title'>Bookmarked</h1> </>}
+      {movies.length == 0 && <> <h1 className='title'>Oops no such content exists!</h1>   </>}
     </div>
 
     <div className='movie-canvas'>
@@ -102,22 +88,14 @@ return (
         return (
           <article key={_id} >
 
-            
-            
             <div className='moviecontainer'>
 
              <div className='thumbnail-container'>
                <img className='thumbnail-image'  src={movie.thumbnail.regular.large} alt="oops no image" />
-
-              
-                <img className='thumbnail-image play'  src="./assets/icon-play.svg" alt="oops no image" />
-              
-
-                <button className='bookmark-container'  onClick={()=>changeState({_id})} >
-
-                {isBookmarked ?  <img src="./assets/icon-bookmark-full.svg" alt="empty bookmark" /> :  <img src="./assets/icon-bookmark-empty.svg" alt="empty bookmark" />}
-                    
-                </button>
+               <img className='thumbnail-image play'  src="./assets/icon-play.svg" alt="oops no image" />
+               <button className='bookmark-container'  onClick={()=>changeState({_id})} >
+                    {isBookmarked ?  <img src="./assets/icon-bookmark-full.svg" alt="empty bookmark" /> :  <img src="./assets/icon-bookmark-empty.svg" alt="empty bookmark" />}
+               </button>
               </div>
                
              
@@ -137,23 +115,14 @@ return (
               </div>
 
              
-             
-            
-              
             </div>
           </article>
         );
     }) }
   
-   
-   
-        </div> 
-    
-      
-    
-    </JustbookmarkContext.Provider>
-      
-    </>
+   </div> 
+   </JustbookmarkContext.Provider>
+   </>
   );
 };
 

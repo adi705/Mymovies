@@ -7,7 +7,7 @@ import {
 } from '../controllers/movies.js';
 
 
-// validation middleware for checkecing if an id is a valid param
+// todo: validation middleware for checking if an id is a valid param
 
 
 router.route('/').get(getAllMovies);

@@ -10,17 +10,14 @@ function Navbar() {
     const handleLogout = async () => {
         try {
          
-
           const { data } = await customFetch.get('/auth/logout');
-
           toast.success('Logout successful');
           return navigate('/');
     
         
         } catch (error) {
          
-
-        toast.error(error?.response?.data?.msg);
+         toast.error(error?.response?.data?.msg);
          return error;
         }
       };

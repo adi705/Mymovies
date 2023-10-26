@@ -10,13 +10,10 @@ export const register = async (req, res) => {
   
   const hashedPassword = await hashPassword(req.body.password);
   req.body.password = hashedPassword;
-
   const user = await User.create(req.body);
 
   // create movies for the user by updating the createdBy field 
-
   const movies = Data.map((movie) => { 
-    
     Movie.create({...movie, createdBy: user._id});
   });
 
@@ -25,13 +22,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   
   const user = await User.findOne({ email: req.body.email });
-  
   const isValidUser = user && (await comparePassword(req.body.password, user.password));
- 
   if (!isValidUser) throw new UnauthenticatedError('invalid credentials');
  
   const token = createJWT({ userId: user._id });
- 
   const oneDay = 1000 * 60 * 60 * 24;
 
   res.cookie('token', token, {
